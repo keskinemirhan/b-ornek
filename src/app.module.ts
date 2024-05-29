@@ -12,6 +12,7 @@ import { envSchema } from './env.validation';
     database: "db.sqlite",
     entities: [User]
   }),
+    UserModule,
     MailerModule,
   ConfigModule.forRoot({
     isGlobal: true,
