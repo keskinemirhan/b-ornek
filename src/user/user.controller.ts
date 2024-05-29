@@ -14,7 +14,7 @@ export class UserController {
   @Post("register")
   async register(@Body() registerDto: ReqRegisterDto) {
     const user = await this.userService.register(registerDto.email, registerDto.username);
-    const verificationLink = join(this.verificationUrl, user.name, user.verificationToken);
+    const verificationLink = join(this.verificationUrl, user.name);
     await this.userService.sendVerificationEmail(user.name, user.email, user.verificationToken, verificationLink);
   }
 

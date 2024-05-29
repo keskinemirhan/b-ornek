@@ -15,7 +15,6 @@ export class UserService {
     @InjectRepository(User) private userRepo: Repository<User>,
     private mailerService: MailerService,
   ) {
-
     const verificationTemplateHbs = readFileSync(
       __dirname + "/../../assets/emailVerificationTemplate.hbs",
       "utf-8"

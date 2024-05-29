@@ -10,7 +10,9 @@ import { envSchema } from './env.validation';
   imports: [TypeOrmModule.forRoot({
     type: "sqlite",
     database: "db.sqlite",
-    entities: [User]
+    entities: [User],
+    synchronize: true
+
   }),
     UserModule,
     MailerModule,
