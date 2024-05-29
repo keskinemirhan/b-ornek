@@ -1,4 +1,4 @@
-import * as Joi  from "joi";
+import * as Joi from 'joi';
 
 export const envSchema = Joi.object({
   SMTP_HOST: Joi.string().required(),

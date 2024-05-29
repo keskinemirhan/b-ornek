@@ -7,26 +7,26 @@ import { MailerModule } from './mailer/mailer.module';
 import { envSchema } from './env.validation';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: "sqlite",
-    database: "db.sqlite",
-    entities: [User],
-    synchronize: true
-
-  }),
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'db.sqlite',
+      entities: [User],
+      synchronize: true,
+    }),
     UserModule,
     MailerModule,
-  ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: ".env",
-    validationSchema: envSchema,
-    validationOptions: {
-      allowUnknown: true,
-      abortEarly: true,
-    }
-  }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+      validationSchema: envSchema,
+      validationOptions: {
+        allowUnknown: true,
+        abortEarly: true,
+      },
+    }),
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}
