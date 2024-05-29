@@ -4,8 +4,7 @@ import { Transporter, createTransport } from "nodemailer";
 import SMTPPool from "nodemailer/lib/smtp-pool";
 
 
-type MailOptions = {
-  from: string;
+export type MailOptions = {
   to: string;
   subject: string;
   html: string;
@@ -16,8 +15,10 @@ export class MailerService implements OnModuleInit {
 
   constructor(private configService: ConfigService) { }
 
+  private from: string;
 
   onModuleInit() {
+    this.from = this.configService.get<string>("MAIL_SENDER");
     if (this.configService.get<boolean>("CONSOLE_MAIL")) {
       this.transporter = {
         sendMail: (args: any) => console.log(args)
@@ -33,13 +34,16 @@ export class MailerService implements OnModuleInit {
         pass: this.configService.get("SMTP_PASSWORD"),
       }
     });
+
   }
   private transporter: Transporter<SMTPPool.SentMessageInfo> | any;
 
   async sendMail(mailOptions: MailOptions) {
     await this.transporter.sendMail({
+      from: this.from,
       ...mailOptions
     })
 
   }
+
 }

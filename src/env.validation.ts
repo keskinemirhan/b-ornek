@@ -6,4 +6,6 @@ export const envSchema = Joi.object({
   SMTP_TLS: Joi.boolean().default(false),
   SMTP_USERNAME: Joi.string().required(),
   SMTP_PASSWORD: Joi.string().required(),
+  CONSOLE_MAIL: Joi.boolean().default(false),
+  MAIL_SENDER: Joi.string().email().required()
 });
