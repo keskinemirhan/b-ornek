@@ -1,0 +1,10 @@
+CONSOLE_MAIL = false
+SMTP_HOST = <smtp-host> 
+SMTP_PORT = <smtp-port>
+SMTP_TLS = <smtp-tls>
+SMTP_USERNAME = <smtp-username>
+SMTP_PASSWORD = <smtp-password>
+MAIL_SENDER = company@mail.com
+APP_HOST = 127.0.0.1
+APP_PORT = 1234
+APP_URL = localhost:1234
