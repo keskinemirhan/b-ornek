@@ -27,7 +27,7 @@ export class MailerService implements OnModuleInit {
       pool: true,
       host: this.configService.get("SMTP_HOST"),
       port: this.configService.get<number>("SMTP_PORT"),
-      secure: false,
+      secure: this.configService.get<boolean>("SMTP_TLS"),
       auth: {
         user: this.configService.get("SMTP_USERNAME"),
         pass: this.configService.get("SMTP_PASSWORD"),
