@@ -24,16 +24,18 @@ export class MailerService implements OnModuleInit {
         sendMail: (args: any) => console.log(args)
       }
     }
-    this.transporter = createTransport({
-      pool: true,
-      host: this.configService.get("SMTP_HOST"),
-      port: this.configService.get<number>("SMTP_PORT"),
-      secure: this.configService.get<boolean>("SMTP_TLS"),
-      auth: {
-        user: this.configService.get("SMTP_USERNAME"),
-        pass: this.configService.get("SMTP_PASSWORD"),
-      }
-    });
+    else {
+      this.transporter = createTransport({
+        pool: true,
+        host: this.configService.get("SMTP_HOST"),
+        port: this.configService.get<number>("SMTP_PORT"),
+        secure: this.configService.get<boolean>("SMTP_TLS"),
+        auth: {
+          user: this.configService.get("SMTP_USERNAME"),
+          pass: this.configService.get("SMTP_PASSWORD"),
+        }
+      });
+    }
 
   }
   private transporter: Transporter<SMTPPool.SentMessageInfo> | any;
