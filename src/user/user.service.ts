@@ -23,6 +23,14 @@ export class UserService {
     this.emailVerificationTemplate = Handlebars.compile(emailVerificationTemplate);
   }
 
+  /** 
+   * Sends verification email to specified email
+   * @param name name of the user
+   * @param email destination email
+   * @param token verification token
+   * @param link verification link
+   *
+   */
   async sendVerificationEmail(name: string, email: string, token: string, link: string) {
     const verificationLink = join(link, token);
     const html = this.emailVerificationTemplate({ username: name, verificationLink })
@@ -33,6 +41,11 @@ export class UserService {
     })
   }
 
+
+  /** 
+   * Creates random alphanumeric token 
+   * @returns random alphanumeric token
+   */
   createVerificationToken() {
     const randomAlphaNumeric = (length: number) => {
       let s = '';
@@ -46,6 +59,14 @@ export class UserService {
     return randomAlphaNumeric(10)
   }
 
+
+  /** 
+   * Registers user 
+   * @param email email of the user
+   * @param name name of the user
+   * @returns registered user 
+   * @throws {BadRequestException} if username or email already exists
+   */
   async register(email: string, name: string) {
     const existingMail = await this.userRepo.findOne({ where: { email } });
     if (existingMail) throw new BadRequestException({ message: "Email already exists" });
@@ -59,6 +80,13 @@ export class UserService {
     return await this.userRepo.save(user);
   }
 
+  /** 
+   * verifies email with given token 
+   * @param token verification token of the user
+   * @param name name of the user
+   * @throws {Badrequestexception} if token does not match 
+   * @throws {Notfoundexception} if user not found 
+   */
   async verifyEmailAddress(name: string, token: string) {
     const user = await this.userRepo.findOne({ where: { name } });
     if (!user) throw new NotFoundException({ message: "User not found" });
@@ -67,6 +95,12 @@ export class UserService {
     await this.userRepo.save(user);
   }
 
+  /** 
+   * controls email verification of the user 
+   * @param name name of the user
+   * @returns boolean if user is verified returns true else false
+   * @throws {Notfoundexception} if user not found 
+   */
   async controlVerification(name: string) {
     const user = await this.userRepo.findOne({ where: { name } });
     if (!user) throw new NotFoundException({ message: "User not found" });

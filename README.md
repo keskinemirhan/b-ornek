@@ -1,73 +1,80 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NestJS Email Doğrulama Uygulaması
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Uygulama SQLite veritabanını kullanmaktadır. ORM olarak TypeORM seçilmiştir.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Uygulama environment değişkenleri için doğrulama yapmaktadır, gerekli değişkenler tanımlanmadığı zaman uygulama hangi değişkenlerin eksik olduğunu bildirip hata verecektir, doğrulama için Joi paketi kullanılmıştır.
 
-## Description
+DTO'lar da doğrulanmaktadır. Geçersiz bir JSON isteği gönderildiği zaman uygulama gerekli bilgiyle birlikte hata mesajı verecektir, DTO doğrulaması için class-validator paketi kullanılmıştır.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+SMTP sağlayıcısıyla iletişim için nodemailer paketi kullanılmıştır.
 
-## Installation
+API dokümantasyonu ve TypeScript dokümantasyonu İngilizce dili ile yazılmıştır.
 
-```bash
+Doğrulama e-postası için ChatGPT'den yararlanılarak bir Handlebars Template'i oluşturulmuştur.
+
+## ChatGPT Kullanımı
+
+ChatGPT uygulamanın geliştirme aşamasında sadece email template hazırlaması için kullanılmıştır.
+Log aşağıdaki linkten ulaşılabilir.
+
+[Gist Linki ](https://gist.github.com/keskinemirhan/ea8170bbfaf6f6ec34308924abe1a1b6)
+
+## Çalıştırma ve Test Etme
+
+Uygulamanın test tarafında UserService için bir unit test ve bir de tüm endpointleri test etmek için e2e test yazılmıştır.
+Testlerde SQLite geçici veritabanı kullanılmaktadır (:memory:).
+
+### Çalıştırma
+
+Uygulamayı çalıştırmak için aşağıdaki komutları girmek yeterli olacaktır.
+
+```sh
+$ git clone git@github.com:keskinemirhan/b-ornek.git
+$ cd b-ornek
 $ npm install
-```
-
-## Running the app
-
-```bash
-# development
 $ npm run start
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+### Test Etme
 
-```bash
-# unit tests
+```sh
+$ git clone git@github.com:keskinemirhan/b-ornek.git
+$ cd b-ornek
+$ npm install
 $ npm run test
-
-# e2e tests
 $ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+## API Dokümantasyonu
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Uygulamanın API dokümantasyonuna uygulamayı çalıştırdıktan sonra "-server-url-/api" kısmından ulaşılabilir. Swagger kullanılarak hazırlanmıştır.
+![alt text](docs/ekran.png)
 
-## Stay in touch
+## Gerekli Environment Değişkenleri
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Gerekli değişkenler aşağıdaki gibidir. Tüm değişkenlerin girilmesi önerilir. Değişkenlerin nasıl doğrulandığını env.validation.ts dosyasında bulabilirsiniz.
 
-## License
+```
+CONSOLE_MAIL = false
+SMTP_HOST = <smtp-host>
+SMTP_PORT = <smtp-port>
+SMTP_TLS = <smtp-tls>
+SMTP_USERNAME = <smtp-username>
+SMTP_PASSWORD = <smtp-password>
+MAIL_SENDER = company@mail.com
+APP_HOST = 127.0.0.1
+APP_PORT = 1234
+APP_URL = localhost:1234
+```
 
-Nest is [MIT licensed](LICENSE).
+- CONSOLE_MAIL - Eğer SMTP sağlayıcısı kullanmak istemiyorsanız bu değişkene true değerini verebilirsiniz ancak SMTP değişkenleri zorunlu olduğu için rastgele değerler girmelisiniz.
+- SMTP_HOST - SMTP sağlayıcısının host adresi.
+- SMTP_PORT - SMTP sağlayıcısının portu.
+- SMTP_TLS - Eğer SMTP sağlayıcısıyla TLS kullanarak bağlantı kurulacaksa true verilmelidir aksi halde boş bırakılabilir.
+- SMTP_USERNAME - SMTP kullanıcı adı.
+- SMTP_PASSWORD - SMTP şifresi
+- MAIL_SENDER - Doğrulama e-postasını gönderen e-posta adresi.
+- APP_HOST - Uygulama host adresi (ip adresi)
+- APP_PORT - Uygulamanın çalışacağı port.
+- APP_URL - Uygulamanın herkese açık URL adresi.

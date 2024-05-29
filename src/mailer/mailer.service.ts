@@ -38,6 +38,10 @@ export class MailerService implements OnModuleInit {
   }
   private transporter: Transporter<SMTPPool.SentMessageInfo> | any;
 
+  /**
+   * Sends email with given options
+   * @param mailOptions mail options
+   */
   async sendMail(mailOptions: MailOptions) {
     await this.transporter.sendMail({
       from: this.from,
